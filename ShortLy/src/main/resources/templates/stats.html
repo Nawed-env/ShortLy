@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Link Stats</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="container">
+<h1 th:text="${link.title} ?: ${link.shortKey}">Stats</h1>
+<p>Short URL: <a th:href="@{/${link.shortKey}}" th:text="${baseUrl + '/' + link.shortKey}"></a></p>
+<p>Original URL: <a th:href="${link.originalUrl}" th:text="${link.originalUrl}"></a></p>
+<p>Total Clicks: <span th:text="${link.clickCount}">0</span></p>
+
+
+<h3>Recent Clicks</h3>
+<table>
+<thead><tr><th>Time</th><th>IP</th><th>Referer</th></tr></thead>
+<tbody>
+<tr th:each="c : ${clicks}">
+<td th:text="${c.clickedAt}">time</td>
+<td th:text="${c.ipAddress}">ip</td>
+<td th:text="${c.referer}">ref</td>
+</tr>
+</tbody>
+</table>
+
+
+<p><a th:href="@{/links}">Back to links</a></p>
+</div>
+</body>
+</html>

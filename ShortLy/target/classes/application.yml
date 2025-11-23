@@ -1,0 +1,20 @@
+server:
+  port: 5432   # 🔥 Your Spring Boot app port (NOT Postgres)
+
+spring:
+  datasource:
+    url: jdbc:postgresql://ep-withered-lake-a1drpd1o-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_1K0YuwHPfbFa
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  base-url: http://localhost:8080
+  short-key-length: 7

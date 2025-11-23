@@ -1,0 +1,29 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your Links</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="container">
+<h1>All Shortened Links</h1>
+<table>
+<thead>
+<tr><th>Title</th><th>Short URL</th><th>Original</th><th>Clicks</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<tr th:each="link : ${links}">
+<td th:text="${link.title}">Title</td>
+<td><a th:href="@{/${link.shortKey}}" th:text="${baseUrl + '/' + link.shortKey}">short</a></td>
+<td th:text="${link.originalUrl}">original</td>
+<td th:text="${link.clickCount}">0</td>
+<td><a th:href="@{'/links/' + ${link.id} + '/stats'}">Stats</a></td>
+</tr>
+</tbody>
+</table>
+<p><a th:href="@{/}">Create another</a></p>
+</div>
+</body>
+</html>

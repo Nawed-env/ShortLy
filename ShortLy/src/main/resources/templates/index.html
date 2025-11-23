@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>URL Shortener</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="container">
+<h1>Shorten your URL</h1>
+
+<form onsubmit="createShortUrl(event)">
+    <input id="url" type="text" placeholder="Enter URL (example.com)" required />
+    <input id="title" type="text" placeholder="Optional title" />
+    <button type="submit">Shorten</button>
+</form>
+
+<p><a th:href="@{/links}">View all links</a></p>
+</div>
+
+<script>
+async function createShortUrl(event) {
+    event.preventDefault();
+
+    const originalUrl = document.getElementById("url").value;
+    const title = document.getElementById("title").value;
+
+    const res = await fetch("/api/links", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ originalUrl, title })
+    });
+
+    const data = await res.json();
+    alert("Short URL: " + data.shortUrl);
+}
+</script>
+
+</body>
+</html>

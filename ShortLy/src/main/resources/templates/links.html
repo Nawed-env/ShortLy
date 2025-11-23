@@ -1,0 +1,53 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>All Links</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="container">
+<h1>All Shortened Links</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Original URL</th>
+            <th>Short URL</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody id="linksTableBody">
+        <!-- Rows added by JS -->
+    </tbody>
+</table>
+</div>
+
+<script>
+async function loadLinks() {
+    const res = await fetch("/api/links");
+    const links = await res.json();
+
+    const table = document.getElementById("linksTableBody");
+    table.innerHTML = "";
+
+    links.forEach(link => {
+        const row = `
+            <tr>
+                <td>${link.id}</td>
+                <td><a href="${link.originalUrl}" target="_blank">${link.originalUrl}</a></td>
+                <td><a href="/${link.shortKey}" target="_blank">/${link.shortKey}</a></td>
+                <td>${link.title || ""}</td>
+            </tr>
+        `;
+        table.innerHTML += row;
+    });
+}
+
+loadLinks();
+</script>
+
+</body>
+</html>
